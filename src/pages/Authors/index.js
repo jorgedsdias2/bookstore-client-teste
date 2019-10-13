@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 import Table from '../../components/Table';
+import AddAuthor from './add';
+import EditAuthor from './edit';
 import api from '../../services/api';
 
-export default function Authors() {
+export default function Authors({ match }) {
     const [authors, setAuthors] = useState([]);
     const head = {
         _id: '#',
@@ -26,12 +28,11 @@ export default function Authors() {
 
     return (
         <>
-            Listing Authors<br />
-            <Table data={authors} head={head} /><br />
-            Add Author<br />
-            <ul>
-                <li><Link to="#">Adicionar Author</Link></li>
-            </ul>
+            <h1>Listing Authors</h1>
+            <Link to={`${match.url}/add`}>Add Author</Link>
+            <Table data={authors} head={head} url={match.url} /><br />
+            <Route path={`${match.url}/add`} component={AddAuthor} />
+            <Route path={`${match.url}/edit/:id`} component={EditAuthor} />
         </>
     )
 }

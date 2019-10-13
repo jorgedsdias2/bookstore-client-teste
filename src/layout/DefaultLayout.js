@@ -7,11 +7,8 @@ class Default extends Component {
     render() {
         return (
             <>
-                {this.props.children}<br />
-                <ul>
-                    <li><Link to="/authors">Authors</Link></li>
-                    <li><Link to="/logout">Sign out</Link></li>
-                </ul>
+                {this.props.children}
+                <Link to="/authors">Authors</Link> / <Link to="/logout">Sign out</Link>
             </>
         )
     }

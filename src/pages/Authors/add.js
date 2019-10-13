@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Dashboard() {
+export default function AddAuthor() {
     return (
         <>
-            <h1>DASHBOARD</h1>
+            <h2>Add Author</h2>
         </>
     );
 }
