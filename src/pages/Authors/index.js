@@ -1,38 +1,87 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Route } from 'react-router-dom';
 
 import Table from '../../components/Table';
-import AddAuthor from './add';
-import EditAuthor from './edit';
+import AddAuthorForm from '../../components/Forms/Authors/AddAuthorForm';
+import EditAuthorForm from '../../components/Forms/Authors/EditAuthorForm';
 import api from '../../services/api';
 
-export default function Authors({ match }) {
+export default function Authors() {
     const [authors, setAuthors] = useState([]);
-    const head = {
-        _id: '#',
-        name: 'Name'
-    };
-
+    const [currentAuthor, setCurrentAuthor] = useState([]);
+    const [editing, setEditing] = useState(false);
+    const token = localStorage.getItem('token');
+    
     useEffect(() => {
-        async function loadAuthors() {
-            const token = localStorage.getItem('token');
-            const response = await api.get('/api/authors', {
-                headers: { 'x-access-token' : token }
-            });
-
-            setAuthors(response.data.authors);
-        }
-
         loadAuthors();
     }, []);
+    
+    async function loadAuthors() {
+        const response = await api.get('/api/authors', {
+            headers: { 'x-access-token' : token }
+        });
 
+        setAuthors(response.data.authors);
+    }
+    
+    async function addAuthor(author) {
+        await api.post('/api/authors/author', { name: author.name }, {
+            headers: {
+                'x-access-token': token
+            }
+        }).then(() => {
+            loadAuthors();
+        });
+    }
+    
+    async function deleteAuthor(id) {
+        api.delete(`/api/authors/author/${id}`, {
+            headers: {
+                'x-access-token': token
+            }
+        }).then(() => {
+            loadAuthors();
+        });
+    }
+    
+    async function updateAuthor(id, author) {
+        api.put(`/api/authors/author/${id}`, { name: author.name }, {
+            headers: {
+                'x-access-token': token
+            }
+        }).then(() => {
+            loadAuthors();
+            setCurrentAuthor([]);
+            setEditing(false);
+        });
+    }
+    
+    function editAuthor(author) {
+        setCurrentAuthor({ ...author });
+        setEditing(true);
+    }
+    
     return (
         <>
             <h1>Listing Authors</h1>
-            <Link to={`${match.url}/add`}>Add Author</Link>
-            <Table data={authors} head={head} url={match.url} /><br />
-            <Route path={`${match.url}/add`} component={AddAuthor} />
-            <Route path={`${match.url}/edit/:id`} component={EditAuthor} />
+            <Table
+                data={authors}
+                head={{ _id: '#', name: 'Name' }}
+                editRow={editAuthor}
+                deleteRow={deleteAuthor}
+            />
+            <br />
+            {
+                editing ? (
+                    <EditAuthorForm
+                        currentAuthor={currentAuthor}
+                        updateAuthor={updateAuthor}
+                    />
+                ) : (
+                    <AddAuthorForm 
+                        addAuthor={addAuthor}
+                    />
+                )
+            }
         </>
     )
 }

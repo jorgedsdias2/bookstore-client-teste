@@ -9,25 +9,33 @@ const Head = ({ keys, head }) => {
                 { 
                     keys.map(key => <th key={key}>{tableHead[key] || key}</th>) 
                 }
-                <td>Edit</td>
+                <th>Actions</th>
             </tr>
         </thead>
     )
 }
 
-const Row = ({ record, url }) => {
+const Row = ({ record, editRow, deleteRow }) => {
     const keys = Object.keys(record);
     return (
         <tr key={record._id} className={record._id}>
             {
                 keys.map(key => <td key={key}>{record[key]}</td>)
             }
-            <td><Link to={`${url}/edit/${record._id}`}>Edit Author</Link></td>
+            <td>
+                <button onClick={() => editRow(record)}>
+                    Edit
+                </button>
+
+                <button onClick={() => deleteRow(record._id)}>
+                    Delete
+                </button>
+            </td>
         </tr>
     )
 }
 
-const Table = ({ data, head, url }) => {
+const Table = ({ data, head, editRow, deleteRow }) => {
     const keys = data[0] ? Object.keys(data[0]) : null;
 
     return (
@@ -37,7 +45,15 @@ const Table = ({ data, head, url }) => {
                     <table border="1">
                         <Head keys={keys} head={head} />
                         <tbody>
-                            { data.map((record, index) => <Row record={record} key={index} url={url} />) }
+                            { 
+                                data.map((record, index) =>
+                                    <Row 
+                                        record={record} key={index}
+                                        editRow={editRow}
+                                        deleteRow={deleteRow}
+                                    />
+                                )
+                            }
                         </tbody>
                     </table>
                 ) : (
