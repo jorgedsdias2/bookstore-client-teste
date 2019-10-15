@@ -56,7 +56,7 @@ export default function Authors() {
     }
     
     function editAuthor(author) {
-        setCurrentAuthor({ ...author });
+        setCurrentAuthor(author);
         setEditing(true);
     }
     

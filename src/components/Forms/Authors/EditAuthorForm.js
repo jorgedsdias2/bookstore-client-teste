@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function EditAuthorForm(props) {
-    console.log(props.currentAuthor);
     const [author, setAuthor] = useState(props.currentAuthor);
+
+    useEffect(() => {
+        setAuthor(props.currentAuthor);
+    }, [props]);
 
     function handleInputChange(e) {
         const {name, value} = e.target;

@@ -15,8 +15,7 @@ const Head = ({ keys, head }) => {
     )
 }
 
-const Row = ({ record, editRow, deleteRow }) => {
-    const keys = Object.keys(record);
+const Row = ({ keys, record, editRow, deleteRow }) => {
     return (
         <tr key={record._id} className={record._id}>
             {
@@ -36,7 +35,7 @@ const Row = ({ record, editRow, deleteRow }) => {
 }
 
 const Table = ({ data, head, editRow, deleteRow }) => {
-    const keys = data[0] ? Object.keys(data[0]) : null;
+    const keys = data[0] ? Object.keys(data[0]).filter((value) => { return value !== "_id" && value !== "__v" }) : null;
 
     return (
         <>
@@ -47,8 +46,10 @@ const Table = ({ data, head, editRow, deleteRow }) => {
                         <tbody>
                             { 
                                 data.map((record, index) =>
-                                    <Row 
-                                        record={record} key={index}
+                                    <Row
+                                        keys={keys}
+                                        record={record} 
+                                        key={index}
                                         editRow={editRow}
                                         deleteRow={deleteRow}
                                     />
