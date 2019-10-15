@@ -30,6 +30,8 @@ export default function Login({ history }) {
 
             localStorage.setItem('token', token);
 
+            dispatch(notification(''));
+
             history.push('/');
             
         }).catch(() => {
@@ -69,6 +71,7 @@ export default function Login({ history }) {
                                                         placeholder="E-mail"
                                                         value={email}
                                                         onChange={event => setEmail(event.target.value)}
+                                                        required
                                                     />
                                                     {/* <input type="email" className="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." /> */}
                                                 </div>
@@ -81,6 +84,7 @@ export default function Login({ history }) {
                                                         placeholder="Password"
                                                         value={password}
                                                         onChange={event => setPassword(event.target.value)}
+                                                        required
                                                     />
                                                     {/* <input type="password" className="form-control form-control-user" id="exampleInputPassword" placeholder="Password" /> */}
                                                 </div>
