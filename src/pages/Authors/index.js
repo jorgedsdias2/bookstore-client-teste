@@ -65,7 +65,7 @@ export default function Authors() {
                 <div className="card shadow mb-4">
                     <div className="card-header py-3">
                         <h6 className="m-0 font-weight-bold text-primary">
-                            <Link data-toggle="modal" data-target="#addAuthor">Add Author</Link>
+                            <Link to="" data-toggle="modal" data-target="#addAuthor">Add Author</Link>
                         </h6>
                     </div>
                     <div className="card-body">

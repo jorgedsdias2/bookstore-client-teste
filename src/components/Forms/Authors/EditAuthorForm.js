@@ -39,7 +39,7 @@ export default function EditAuthorForm(props) {
                                         name="name"
                                         id="name"
                                         placeholder="Name"
-                                        value={author.name}
+                                        value={author.name || ''}
                                         onChange={handleInputChange}
                                         required
                                     />
