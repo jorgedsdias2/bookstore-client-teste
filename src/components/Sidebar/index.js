@@ -30,7 +30,7 @@ export default function Sidebar() {
                     <Link className="nav-link collapsed" to="" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                         <i className="fas fa-fw fa-folder"></i>
                         <span>Pages</span>
-                    </Link>
+                    </Link> 
                     <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
                             <h6 className="collapse-header">Main Pages:</h6>
