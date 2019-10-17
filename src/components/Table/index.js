@@ -38,7 +38,7 @@ const Row = ({ keys, record, editRow, deleteRow }) => {
                     <i className="fas fa-edit"></i>
                 </button>
                 &nbsp;
-                <button className="btn btn-danger" onClick={() => deleteRow(record._id)}>
+                <button className="btn btn-danger" onClick={() => { if(window.confirm('Do you really want to delete this record?')) { deleteRow(record._id) }} }>
                     <i className="fas fa-trash-alt"></i>
                 </button>
             </td>

@@ -33,16 +33,13 @@ export default function Authors() {
     }
     
     async function deleteAuthor(id) {
-        /* eslint no-restricted-globals:0 */
-        if(confirm('Do you really want to delete this record?')) {
-            api.delete(`/api/authors/author/${id}`, {
-                headers: {
-                    'x-access-token': token
-                }
-            }).then(() => {
-                loadAuthors();
-            });
-        }
+        api.delete(`/api/authors/author/${id}`, {
+            headers: {
+                'x-access-token': token
+            }
+        }).then(() => {
+            loadAuthors();
+        });
     }
     
     async function updateAuthor(id, author) {

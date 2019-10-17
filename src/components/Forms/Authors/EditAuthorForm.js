@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import $ from 'jquery';
 
 export default function EditAuthorForm(props) {
     const [author, setAuthor] = useState(props.currentAuthor);
