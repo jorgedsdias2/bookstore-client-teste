@@ -8,7 +8,6 @@ import api from '../../services/api';
 export default function Authors() {
     const [authors, setAuthors] = useState([]);
     const [currentAuthor, setCurrentAuthor] = useState([]);
-    const [editing, setEditing] = useState(false);
     const token = localStorage.getItem('token');
     
     useEffect(() => {
@@ -34,13 +33,16 @@ export default function Authors() {
     }
     
     async function deleteAuthor(id) {
-        api.delete(`/api/authors/author/${id}`, {
-            headers: {
-                'x-access-token': token
-            }
-        }).then(() => {
-            loadAuthors();
-        });
+        /* eslint no-restricted-globals:0 */
+        if(confirm('Do you really want to delete this record?')) {
+            api.delete(`/api/authors/author/${id}`, {
+                headers: {
+                    'x-access-token': token
+                }
+            }).then(() => {
+                loadAuthors();
+            });
+        }
     }
     
     async function updateAuthor(id, author) {
@@ -51,37 +53,31 @@ export default function Authors() {
         }).then(() => {
             loadAuthors();
             setCurrentAuthor([]);
-            setEditing(false);
         });
     }
     
     function editAuthor(author) {
         setCurrentAuthor(author);
-        setEditing(true);
     }
     
     return (
         <>
-            <h1>Listing Authors</h1>
-            <Table
-                data={authors}
-                head={{ _id: '#', name: 'Name' }}
-                editRow={editAuthor}
-                deleteRow={deleteAuthor}
+            <div className="container-fluid">
+                <h1 className="h3 mb-4 text-gray-800">Listing Authors</h1>
+                <Table
+                    data={authors}
+                    head={{ _id: '#', name: 'Name' }}
+                    editRow={editAuthor}
+                    deleteRow={deleteAuthor}
+                />
+            </div>
+            <EditAuthorForm
+                currentAuthor={currentAuthor}
+                updateAuthor={updateAuthor}
             />
-            <br />
-            {
-                editing ? (
-                    <EditAuthorForm
-                        currentAuthor={currentAuthor}
-                        updateAuthor={updateAuthor}
-                    />
-                ) : (
-                    <AddAuthorForm 
-                        addAuthor={addAuthor}
-                    />
-                )
-            }
+            <AddAuthorForm 
+                addAuthor={addAuthor}
+            />
         </>
     )
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import $ from 'jquery';
 
 export default function EditAuthorForm(props) {
     const [author, setAuthor] = useState(props.currentAuthor);
@@ -16,24 +17,43 @@ export default function EditAuthorForm(props) {
     function handleSubmit(e) {
         e.preventDefault();
         props.updateAuthor(author._id, author);
+        document.querySelector("#editAuthor .close").click();
     }
 
     return (
         <>
-            <h2>Edit Author</h2>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Name *</label>
-                <input 
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Name"
-                    value={author.name}
-                    onChange={handleInputChange}
-                    required
-                />
-                <button type="submit">Update</button>
-            </form>
+            <div className="modal fade" id="editAuthor" tabIndex="-1" role="dialog" aria-labelledby="editAuthor" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="editAuthor">Edit Author</h5>
+                            <button className="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <form className="user" onSubmit={handleSubmit}>
+                            <div className="modal-body">
+                                <div className="form-group">
+                                    <input
+                                        className="form-control form-control-user"
+                                        type="text"
+                                        name="name"
+                                        id="name"
+                                        placeholder="Name"
+                                        value={author.name}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <button className="btn btn-primary" type="submit">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

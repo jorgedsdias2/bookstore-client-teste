@@ -4,10 +4,6 @@ export default function Menu() {
     return (
         <>
             <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
-                    <i className="fa fa-bars"></i>
-                </button>
-
                 <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div className="input-group">
                         <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
@@ -142,8 +138,9 @@ export default function Menu() {
 
                     <li className="nav-item dropdown no-arrow">
                         <a className="nav-link dropdown-toggle" href="/" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span className="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                            <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60" alt="" />
+                            <span className="mr-2 d-none d-lg-inline text-gray-600 small">Jorge Dias</span>
+                            {/* <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60" alt="" /> */}
+                            <img className="img-profile rounded-circle" src="https://pt.gravatar.com/userimage/18575886/bd2ec531549caefd11f488daca79cffb.jpg?size=60x60" alt="" />
                         </a>
 
                         <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
