@@ -35,9 +35,18 @@ export default function Sidebar() {
                         <div className="bg-white py-2 collapse-inner rounded">
                             <h6 className="collapse-header">Main Pages:</h6>
                             <Link className="collapse-item" to="/authors">Authors</Link>
+                            <Link className="collapse-item" to="/books">Books</Link>
+                            <Link className="collapse-item" to="/categories">Categories</Link>
+                            <Link className="collapse-item" to="/users">Users</Link>
                         </div>
                     </div>
                 </li>
+
+                <hr className="sidebar-divider d-none d-md-block" />
+
+                <div className="text-center d-none d-md-inline">
+                    <button className="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
             </ul>
         </>
     )
