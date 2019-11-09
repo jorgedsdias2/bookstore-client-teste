@@ -8,20 +8,25 @@ import api from '../../services/api';
 
 export default function Authors() {
     const [authors, setAuthors] = useState([]);
+    const [change, setChange] = useState(false);
     const [currentAuthor, setCurrentAuthor] = useState([]);
     const token = localStorage.getItem('token');
     
     useEffect(() => {
-        loadAuthors();
-    }, []);
+        async function loadAuthors() {
+            const response = await api.get('/api/authors', {
+                headers: { 'x-access-token' : localStorage.getItem('token') }
+            });
     
-    async function loadAuthors() {
-        const response = await api.get('/api/authors', {
-            headers: { 'x-access-token' : token }
-        });
+            setAuthors(response.data.authors);
+        }
 
-        setAuthors(response.data.authors);
-    }
+        loadAuthors();
+
+        return () => {
+            setChange(false);
+        }
+    }, [change]);
     
     async function addAuthor(author) {
         await api.post('/api/authors/author', { name: author.name }, {
@@ -29,7 +34,7 @@ export default function Authors() {
                 'x-access-token': token
             }
         }).then(() => {
-            loadAuthors();
+            setChange(true);
         });
     }
     
@@ -39,7 +44,7 @@ export default function Authors() {
                 'x-access-token': token
             }
         }).then(() => {
-            loadAuthors();
+            setChange(true);
         });
     }
     
@@ -49,7 +54,7 @@ export default function Authors() {
                 'x-access-token': token
             }
         }).then(() => {
-            loadAuthors();
+            setChange(true);
             setCurrentAuthor([]);
         });
     }
